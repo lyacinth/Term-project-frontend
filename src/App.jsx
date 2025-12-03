@@ -1,13 +1,13 @@
 import { Routes, Route } from 'react-router-dom'
 import { useQuery } from '@tanstack/react-query'
-import SongList from './pages/SongList.jsx'
-import SongDetail from './pages/SongDetail.jsx'
-import { getSongList } from './api/songApi'
+import CharacterList from './pages/CharacterList.jsx'
+import CharacterDetail from './pages/CharacterDetail.jsx'
+import { getCharacterList } from './api/characterApi'
 
 function App() {
-  const { data: songs, isLoading, isError, error } = useQuery({
-    queryKey: ['songs'],
-    queryFn: getSongList
+  const { data: chracters, isLoading, isError, error } = useQuery({
+    queryKey: ['characters'],
+    queryFn: getCharacterList
   })
 
   if (isLoading) {
@@ -20,8 +20,8 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<SongList songs={songs} />} />
-      <Route path="/song/:id" element={<SongDetail songs={songs} />} />
+      <Route path="/" element={<CharacterList characters={chracters} />} />
+      <Route path="/characters/:id" element={<CharacterDetail characterss={chracters} />} />
     </Routes>
   )
 }
