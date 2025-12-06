@@ -40,7 +40,7 @@ const CharacterDetail = () => {
   
   // [중요] 이미지 경로 생성 (Card와 동일한 로직)
   const imageFilename = character.images || `${character.name}.jpg`;
-  const imageUrl = `/images/${imageFilename}`;
+  const imageUrl = `${import.meta.env.BASE_URL}images/${imageFilename}`;
 
   return (
     <div className="min-h-screen bg-gray-950 flex items-center justify-center p-4 md:p-8">
@@ -93,22 +93,33 @@ const CharacterDetail = () => {
         <div className="w-full md:w-[45%] h-[400px] md:h-auto bg-gray-900 relative overflow-hidden z-10 md:absolute md:right-0 md:inset-y-0">
             <img 
               src={imageUrl}
-              // 안전장치: 이미지 없으면 placeholder 표시
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = `https://via.placeholder.com/800x1000/111827/374151?text=${character.name}`;
+                // placehold.co가 더 안정적입니다.
+                e.target.src = `https://placehold.co/800x1000/111827/374151?text=${character.name}`;
               }}
               alt={character.name}
-              // object-cover로 영역을 꽉 채우고, PC에서는 왼쪽 정보영역과 자연스럽게 겹치도록 배치
-              className="w-full h-full object-cover opacity-90 hover:opacity-100 transition duration-1000 ease-out md:object-[center_top]"
+              // [변경 1] opacity-90 제거하여 기본 상태를 선명하게 만듦
+              className="w-full h-full object-cover hover:scale-105 transition duration-1000 ease-out md:object-[center_top]"
             />
             
-            {/* 이미지 합성 그라데이션 (중요!) */}
-            {/* 모바일: 아래에서 위로 어두워짐 */}
+            {/* [추가된 부분] ✨ 그라데이션 블러 효과 오버레이 ✨ */}
+            {/* PC 화면(md 이상)에서만 작동하며, 왼쪽에서 오른쪽으로 흐려지는 효과를 줍니다. */}
+            <div 
+              className="hidden md:block absolute inset-0 z-20 pointer-events-none"
+              style={{
+                // 1. 배경을 흐리게 만드는 필터 (수치를 높이면 더 흐려집니다)
+                backdropFilter: 'blur(12px)', 
+                // 2. 마스크를 이용해 왼쪽은 블러를 보여주고(불투명), 오른쪽은 투명하게 만듦
+                maskImage: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%)',
+                WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%)'
+              }}
+            ></div>
+
+            {/* 기존 색상 그라데이션 (유지) */}
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/40 to-transparent md:hidden"></div>
-            {/* PC: 왼쪽에서 오른쪽으로, 그리고 전체적으로 살짝 어둡게 눌러줌 */}
-            <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/60 to-transparent"></div>
-             <div className="absolute inset-0 bg-gray-900/20 mix-blend-multiply pointer-events-none"></div>
+            <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/50 to-transparent z-10"></div>
+             <div className="absolute inset-0 bg-gray-900/20 mix-blend-multiply pointer-events-none z-10"></div>
         </div>
 
       </div>

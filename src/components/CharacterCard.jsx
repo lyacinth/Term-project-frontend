@@ -8,8 +8,8 @@ export default function CharacterCard({ character }) {
   // 만약 DB 필드명이 다르다면 character.imageFile 부분을 수정해주세요.
   // 예: character.image가 필드명이라면 -> character.image 로 변경
   const imageFilename = character.images || `${character.name}.jpg`; // 혹시 비어있으면 이름.jpg로 대체
-  const imageUrl = `/images/${imageFilename}`;
-
+  const imageUrl = `${import.meta.env.BASE_URL}images/${imageFilename}`;
+  
   return (
     <Link 
       to={`/characters/${character.id}`} 
