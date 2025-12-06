@@ -26,7 +26,7 @@ export default function CharacterCard({ character }) {
           onError={(e) => {
             e.target.onerror = null; // 무한 루프 방지
             // 엑박 대신 회색 배경에 이름만 나옴
-            e.target.src = `https://via.placeholder.com/300x400/1f2937/ffffff?text=${character.name}`;
+            e.target.src = `https://placehold.co/300x400/1f2937/ffffff?text=${character.name}`;
           }}
 
           // [핵심 CSS] object-cover: 원본 비율 무시하고 틀에 꽉 채움 (찌그러짐 방지)
