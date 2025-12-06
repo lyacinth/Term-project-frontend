@@ -39,7 +39,7 @@ const CharacterDetail = () => {
   if (isError) return <div className="min-h-screen bg-gray-950 flex items-center justify-center text-red-500">Error: {error.message}</div>;
   
   // [중요] 이미지 경로 생성 (Card와 동일한 로직)
-  const imageFilename = character.imageFile || `${character.name}.jpg`;
+  const imageFilename = character.images || `${character.name}.jpg`;
   const imageUrl = `/images/${imageFilename}`;
 
   return (
