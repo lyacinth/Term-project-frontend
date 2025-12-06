@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080/api/characters',
+  baseURL: 'https://term-project-backend-496e.onrender.com/api/characters',
 })
 
 export const getCharacterList = async () => {
