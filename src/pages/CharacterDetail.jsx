@@ -109,7 +109,7 @@ const CharacterDetail = () => {
               className="hidden md:block absolute inset-0 z-20 pointer-events-none"
               style={{
                 // 1. 배경을 흐리게 만드는 필터 (수치를 높이면 더 흐려집니다)
-                backdropFilter: 'blur(12px)', 
+                backdropFilter: 'blur(10px)', 
                 // 2. 마스크를 이용해 왼쪽은 블러를 보여주고(불투명), 오른쪽은 투명하게 만듦
                 maskImage: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%)',
                 WebkitMaskImage: 'linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 60%)'
